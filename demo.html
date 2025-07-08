@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>To Do List</title>
+  <style>
+    body {
+      font-family: sans-serif;
+	  background-color:pink;
+    }  
+
+    .container {
+      width: 300px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+	  border: 2px solid purple;
+	  background-color:purple;
+	  color:rgb(255,255,255);
+    }
+
+    .list-container {
+      border: 2px solid #ccc;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .list-item {
+      padding: 10px;
+      border-bottom: 2px solid #eee;
+    }
+
+    .list-item input {
+      margin-right: 10px;
+    }
+
+    .add-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .add-item input {
+      flex: 1;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .add-item button {
+      padding: 8px 15px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>My To Do List</h1>
+    <div class="list-container">
+      <div class="list-item">
+        <input type="checkbox" checked>
+        <span>Pay bills</span>
+        <button class="delete-button">X</button>
+      </div>
+      <div class="list-item">
+        <input type="checkbox">
+        <span>Hit the gym</span>
+        <button class="delete-button">X</button>
+      </div>
+      <div class="list-item">
+        <input type="checkbox">
+        <span>Meet George</span>
+        <button class="delete-button">X</button>
+      </div>
+      <div class="list-item">
+        <input type="checkbox">
+        <span>Buy eggs</span>
+        <button class="delete-button">X</button>
+      </div>
+      <div class="list-item">
+        <input type="checkbox">
+        <span>Read a book</span>
+        <button class="delete-button">X</button>
+      </div>
+      <div class="list-item">
+        <input type="checkbox">
+        <span>Organize office</span>
+        <button class="delete-button">X</button>
+      </div>
+    </div>
+
+    <div class="add-item">
+      <input type="text" placeholder="Title...">
+      <button>Add</button>
+    </div>
+  </div>
+
+  <script>
+    const deleteButtons = document.querySelectorAll('.delete-button');
+    const addItemButton = document.querySelector('.add-item button');
+    const listContainer = document.querySelector('.list-container');
+
+    deleteButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const listItem = button.parentElement;
+        listItem.remove();
+      });
+    });
+
+    addItemButton.addEventListener('click', () => {
+      const titleInput = document.querySelector('.add-item input');
+      const title = titleInput.value;
+
+      if (title !== "") {
+        const newItem = document.createElement('div');
+        newItem.classList.add('list-item');
+        newItem.innerHTML = `
+          <input type="checkbox">
+          <span>${title}</span>
+          <button class="delete-button">X</button>
+        `;
+        listContainer.appendChild(newItem);
+
+        titleInput.value = "";
+
+        const newDeleteButton = newItem.querySelector('.delete-button');
+        newDeleteButton.addEventListener('click', () => {
+          newItem.remove();
+        });
+      }
+    });
+  </script>
+</body>
+</html>
